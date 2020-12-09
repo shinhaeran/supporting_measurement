@@ -1,10 +1,10 @@
-<h1>aa</h1>
-<h1>{{user}}</h1>
-
+<h1>{{user}}님의 실측 예정 데이터 목록들입니다.</h1>
+<a href="{% url 'completed'%}">실측 완료한 목록</a>
 {% for c in cart %}
-
-<p>{{c.data.location}}</p>
+<p>{{c.id}} | {{c.data.location}}</p>
+<a href="{% url 'delete' c.id%}">삭제하기</a>
+<a href="{% url 'complete' c.id%}">완료</a>
 <br>
-
-
 {% endfor %}
+
+

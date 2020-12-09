@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import *
 from django.contrib.auth.models import AbstractUser
 from .forms import CreateUserForm
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,DeleteView
 from django.views.generic.edit import FormView,CreateView
 from django.urls import reverse_lazy
 # Create your views here.
@@ -68,3 +68,27 @@ class CreateUserView(CreateView):
 
 class RegisteredView(TemplateView):
     template_name = 'signup_done.html'
+
+
+def delete_cart(request,pk):
+    Cart.objects.get(id=pk).delete()
+    cart=Cart.objects.filter(user=request.user,state=False)
+    return render(request, 'cart.html',{'cart':cart
+    })
+
+import datetime
+def complete(request,pk):
+    c = Cart.objects.get(id=pk)
+    c.state = True
+    # print(c.data.id)
+    c.data.updated_at = datetime.datetime.now()
+    c.data.save()
+    c.save()
+    cart=Cart.objects.filter(user=request.user,state=False)
+    return render(request, 'cart.html',{'cart':cart
+    })
+
+def completed_data(request):
+    cart=Cart.objects.filter(user=request.user,state=True)
+    return render(request, 'completed.html',{'cart':cart
+    })

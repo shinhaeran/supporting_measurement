@@ -1,0 +1,8 @@
+<h1>{{user}}님의 실측 완료데이터 목록들입니다.</h1>
+<a href="{% url 'test'%}">메인화면으로 가기</a>
+{% for c in cart %}
+<p>{{c.id}} | {{c.data.location}} | {{c.data.updated_at}}</p>
+<br>
+{% endfor %}
+
+

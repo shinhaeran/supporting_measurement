@@ -74,7 +74,7 @@ function makeOutListener(infowindow) {
 }
 </script>
 
-<form action="{% url 'test3' %}" method="post">
+<form action="{% url 'cart' %}" method="post">
     {% csrf_token %}
     {% for d,data in datas %}
         <input type="checkbox" name="result[]" id="{{data.id}}" value="{{data.id}}">
